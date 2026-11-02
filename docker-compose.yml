@@ -20,7 +20,7 @@ services:
       # Override these in a .env file next to this compose file for anything but a local demo.
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-dev-only-access-secret-change-me-please-1234}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-only-refresh-secret-change-me-please-123}
-      WEB_ORIGIN: http://localhost:8080
+      WEB_ORIGIN: http://localhost:${WEB_PORT:-8080}
       TRUST_PROXY: 'true'
       LOG_LEVEL: info
       # Behind the nginx proxy over plain http on localhost the cookie cannot be Secure.
@@ -38,7 +38,7 @@ services:
     depends_on:
       - api
     ports:
-      - '8080:80'
+      - '${WEB_PORT:-8080}:80'
 
 volumes:
   mongo-data:

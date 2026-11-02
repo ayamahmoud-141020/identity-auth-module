@@ -97,3 +97,15 @@ production rule) so `docker compose up` on plain `http://localhost:8080` works i
 Why: one-command startup is a stated requirement; weakening it only via an explicit, documented flag.
 Files affected: `apps/api/src/shared/config/env.schema.ts`, `.../features/common/refresh-cookie.service.ts`,
 `docker-compose.yml`, `apps/api/.env.example`.
+
+---
+
+## Compose web port made configurable
+
+Phase: 4
+What you proposed/generated: web container fixed to host port 8080.
+What I changed or rejected (if anything): Agent decision after `docker compose up` failed on this machine
+(host nginx already on 8080): `WEB_PORT` variable (default 8080) for the port mapping and `WEB_ORIGIN`.
+Smoke test through nginx on 8081: health, sign-up 201, /users/me 200 and 401, refresh 200, reuse 401,
+duplicate 409, validation 400, SPA served.
+Files affected: `docker-compose.yml`, `README.md`.
