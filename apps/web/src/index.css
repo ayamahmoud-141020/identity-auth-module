@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+:root {
+  --color-brand: oklch(55% 0.17 262);
+  --color-brand-strong: oklch(45% 0.18 262);
+}
+
+@theme inline {
+  --color-brand: var(--color-brand);
+  --color-brand-strong: var(--color-brand-strong);
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+}
