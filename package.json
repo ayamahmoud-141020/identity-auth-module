@@ -11,6 +11,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "postinstall": "npm run build -w @app/shared",
     "build": "npm run build --workspaces --if-present",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",

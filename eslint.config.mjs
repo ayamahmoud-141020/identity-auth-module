@@ -11,7 +11,7 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        projectService: { allowDefaultProject: ['*.config.{ts,mts}', '*/*/*.config.{ts,mts}'] },
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -55,6 +55,18 @@ export default tseslint.config(
           ],
         },
       ],
+    },
+  },
+  {
+    // Tests and fakes talk to loosely-typed harnesses (supertest, Jest mocks); relax the `any` guards.
+    files: ['**/test/**/*.ts', '**/*.spec.ts', '**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/unbound-method': 'off',
     },
   },
   {
