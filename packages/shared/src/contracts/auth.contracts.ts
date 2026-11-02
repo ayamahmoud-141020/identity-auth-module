@@ -6,13 +6,10 @@ export interface UserResponse {
   createdAt: string;
 }
 
+/** Returned by sign-up, sign-in and refresh. */
 export interface AuthResponse {
   accessToken: string;
   user: UserResponse;
-}
-
-export interface RefreshResponse {
-  accessToken: string;
 }
 
 export interface ApiErrorResponse {
