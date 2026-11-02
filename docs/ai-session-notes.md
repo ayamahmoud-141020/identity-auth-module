@@ -18,3 +18,31 @@ empty root commit, all work on `feat/identity-auth-module`).
 What I changed or rejected (if anything): Nothing. Approved as written.
 Why: —
 Files affected: `/home/ign-bgp6fn3/.claude/plans/pasted-content-id-615f-full-stack-vast-puffin.md`
+
+---
+
+## Per-phase review stops removed
+
+Phase: 1 → 2 transition
+What you proposed/generated: Phase 1 ended green and I stopped for review, per the working agreement
+("build in phases, each ending green, then stop for my review").
+What I changed or rejected (if anything): Instruction: "go to finish the all implementation and testing" —
+continue through Phases 2, 3 and 4 without stopping between them.
+Why: Engineer's call on delivery speed; the final report still covers every Definition-of-Done item.
+Files affected: process only.
+
+---
+
+## NestJS pinned to the 11.x line
+
+Phase: 2
+What you proposed/generated: `npm install @nestjs/*` resolved to NestJS 12.3, which ships as ESM-only
+(`"type": "module"` in `@nestjs/common/package.json`). Typecheck failed with TS1479 on every Nest import
+because the API is a CommonJS package.
+What I changed or rejected (if anything): Agent decision, not an engineer correction: pinned
+`@nestjs/{common,core,platform-express,cqrs,mongoose,jwt,swagger}@11`, `@nestjs/config@4`, `nestjs-pino@4`
+(CommonJS line) and did a clean reinstall so a single Nest version exists in the tree.
+Why: Going ESM would force Jest into `--experimental-vm-modules` mode, `.js` import suffixes everywhere and
+ts-jest ESM transforms: cost without benefit for a 4-hour deliverable. Nest 11 is the widely deployed line.
+Also: TypeScript pinned to `~6.0.3` (npm default was 7.0.2, unsupported by typescript-eslint and ts-jest).
+Files affected: `apps/api/package.json`, root `package.json`, `package-lock.json`, `apps/api/tsconfig.json`.
