@@ -9,7 +9,9 @@ export default defineConfig({
   resolve: {
     // Bundle the shared package from its ESM source so Zod and the schemas tree-shake;
     // Node consumers (the API) use the CommonJS build in packages/shared/dist.
-    alias: { '@app/shared': fileURLToPath(new URL('../../packages/shared/src/index.ts', import.meta.url)) },
+    alias: {
+      '@app/shared': fileURLToPath(new URL('../../packages/shared/src/index.ts', import.meta.url)),
+    },
   },
   server: {
     port: 5173,
