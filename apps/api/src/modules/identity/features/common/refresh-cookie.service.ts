@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { type CookieOptions, type Response } from 'express';
-import { type Env } from '../../../../shared/config/env.schema';
+import { type Env, isCookieSecure } from '../../../../shared/config/env.schema';
 import { type IssuedRefreshToken } from '../../domain/ports';
 
 export const REFRESH_COOKIE_NAME = 'refresh_token';
@@ -16,7 +16,10 @@ export class RefreshCookieService {
     this.baseOptions = {
       httpOnly: true,
       sameSite: 'strict',
-      secure: config.get('NODE_ENV', { infer: true }) === 'production',
+      secure: isCookieSecure({
+        NODE_ENV: config.get('NODE_ENV', { infer: true }),
+        COOKIE_SECURE: config.get('COOKIE_SECURE', { infer: true }),
+      }),
       path: REFRESH_COOKIE_PATH,
     };
   }
