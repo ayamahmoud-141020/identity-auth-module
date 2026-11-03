@@ -272,7 +272,7 @@ sequenceDiagram
   B->>A: POST /auth/sign-in { email, password }
   A->>A: ZodValidationPipe(signInSchema)
   A->>M: findOne({ email }) select +passwordHash +session.refreshTokenHash
-  A->>A: argon2.verify(hash ?? dummyHash, password)  -- always runs
+  A->>A: argon2.verify(hash or dummyHash, password), always runs
   alt unknown email or wrong password
     A-->>B: 401 "Invalid email or password"
   else ok
@@ -296,7 +296,7 @@ sequenceDiagram
     U-->>A: session.refreshTokenHash = sha256(T2)
     A-->>B: 200 { accessToken } + Set-Cookie refresh_token=T2
   else sha256(T1) != stored hash (T1 was already rotated → theft suspected)
-    U-->>A: revokeSessions(); throw RefreshTokenReusedError
+    U-->>A: revokeSessions() and throw RefreshTokenReusedError
     A->>A: persist revocation
     A-->>B: 401, cookie cleared  (T2 is now dead as well)
   end
