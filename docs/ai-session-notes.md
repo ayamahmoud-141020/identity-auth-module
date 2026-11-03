@@ -109,3 +109,15 @@ What I changed or rejected (if anything): Agent decision after `docker compose u
 Smoke test through nginx on 8081: health, sign-up 201, /users/me 200 and 401, refresh 200, reuse 401,
 duplicate 409, validation 400, SPA served.
 Files affected: `docker-compose.yml`, `README.md`.
+
+---
+
+## AI.md written by the agent at the engineer's request
+
+Phase: post-delivery
+What you proposed/generated: Nothing; the original instruction was "Do not write `AI.md` yourself; I own it."
+What I changed or rejected (if anything): Instruction: "write the AI.md from the session notes in very
+professional way". Drafted `AI.md` from this log and the engineer's own template; only corrections that
+actually happened are listed; the engineer reviews and owns the final text.
+Why: Engineer's call.
+Files affected: `AI.md`.
